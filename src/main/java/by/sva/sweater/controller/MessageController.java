@@ -61,22 +61,7 @@ public class MessageController {
 			Model model,
 			@PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable, // сортировать по id по убыванию
 			@AuthenticationPrincipal User user) {
-		/* В файле registration.ftlh и в файле main.ftlh переменные ${message!""} и ${filter!}
-		 * обязательно писать с восклицательным знаком (после него можно указать значение по умолчанию).
-		 * Иначе при пустом значении сваливается
-		 * или добавить ?ifExists -> ${message?ifExists} и ${filter?ifExists}
-		 */
 		
-		/* получение всех сообщений
-		List<Message> messages = messageRepository.findAll();
-		if(filter != null && !filter.isEmpty()) {
-			messages = messageRepository.findByTag(filter);
-		} else {
-			messages = messageRepository.findAll();
-		}
-		model.addAttribute("messages", messages);
-		model.addAttribute("filter", filter);
-		*/
 		// постраничное получение сообщений
 		Page<MessageDto> page = messageService.getMessageList(pageable, filter, user);
 		
@@ -124,7 +109,7 @@ public class MessageController {
 		if(!file.isEmpty() && !file.getOriginalFilename().isEmpty()) { // если файл не выбран
 			File uploadDir = new File(uploadPath); // переменная - путь для хранения файлов
 			if(!uploadDir.exists()) { // если такой папки нет
-				uploadDir.mkdir();    // создать ее !НЕ СОЗДАЕТ! Не работает, пока не создашь папку вручную
+				uploadDir.mkdir();    // создать ее 
 			}
 			
 			// следующий блок нужен для контроля уникальности имен файлов
